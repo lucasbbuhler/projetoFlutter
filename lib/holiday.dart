@@ -16,7 +16,7 @@ class HolidayScreen extends StatefulWidget {
 class _HolidayScreenState extends State<HolidayScreen> {
   final HolidayRepository repository = HolidayRepository();
   late Future<List<HolidayModel>> futureHolidays;
-  String formatarData(String dataIso) {
+  String formatarDataPtBr(String dataIso) {
     final DateTime parsedDate = DateTime.parse(dataIso);
     return DateFormat('dd/MM/yyyy').format(parsedDate);
   }
@@ -86,7 +86,7 @@ class _HolidayScreenState extends State<HolidayScreen> {
                         h.name,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text('${formatarData(h.date)} • nacional'),
+                      subtitle: Text('${formatarDataPtBr(h.date)} • nacional'),
                     ),
                   ),
                 ),

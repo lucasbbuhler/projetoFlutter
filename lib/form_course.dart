@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:primeiroapp/models/course_model.dart';
 import 'package:primeiroapp/repository/course.repository.dart';
+import 'package:intl/intl.dart';
 
 class FormCourse extends StatefulWidget {
   const FormCourse({super.key, this.courseEdit});
@@ -31,6 +32,14 @@ class _FormCourseState extends State<FormCourse> {
     }
   }
 
+  formatStringPtBrToApiStringFormat(date) {
+    String day = date.substring(0, 2);
+    String month = date.substring(3, 5);
+    String year = date.substring(6, 10);
+
+    return '$year-$month-${day}T00:00:00.000Z';
+  }
+
   putUpdateCourse() async {
     try {
       await repository.putUpdateCourse(
@@ -38,7 +47,9 @@ class _FormCourseState extends State<FormCourse> {
           id: id,
           name: textNameController.text,
           description: textDescController.text,
-          startAt: textStartAtController.text,
+          startAt: formatStringPtBrToApiStringFormat(
+            textStartAtController.text,
+          ),
         ),
       );
       ScaffoldMessenger.of(
@@ -56,7 +67,9 @@ class _FormCourseState extends State<FormCourse> {
         CourseModel(
           name: textNameController.text,
           description: textDescController.text,
-          startAt: textStartAtController.text,
+          startAt: formatStringPtBrToApiStringFormat(
+            textStartAtController.text,
+          ),
         ),
       );
       ScaffoldMessenger.of(
@@ -114,6 +127,18 @@ class _FormCourseState extends State<FormCourse> {
                     return "Campo obrigatório";
                   }
                   return null; //válido
+                },
+                onTap: () {
+                  showDatePicker(
+                    context: context,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2030),
+                  ).then((value) {
+                    if (value != null) {
+                      var outputFormat = DateFormat('dd/MM/yyyy');
+                      textStartAtController.text = outputFormat.format(value);
+                    }
+                  });
                 },
               ),
               SizedBox(height: 15),
