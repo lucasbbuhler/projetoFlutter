@@ -21,6 +21,3 @@ A interface é responsiva, com suporte a tema claro/escuro e navegação via men
 
 - [Flutter](https://flutter.dev/)
 - [Dart](https://dart.dev/)
-- [http](https://pub.dev/packages/http)
-- [flutter_slidable](https://pub.dev/packages/flutter_slidable)
-- [intl](https://pub.dev/packages/intl)
